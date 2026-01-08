@@ -227,5 +227,5 @@ mean(new_vector)
 
 4. Recalculate the mean using the following code chunk. Why is the useful?  
 ```{r}
-mean(new_vector, na.rm = TRUE) #removes NA values
+mean(new_vector, na.rm = T) #removes NA values
 ```
