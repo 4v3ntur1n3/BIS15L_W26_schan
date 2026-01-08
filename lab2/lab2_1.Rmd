@@ -22,7 +22,7 @@ output:
 ## Working Directories and Paths
 Before we get started with R, it is important to understand the concept of working directories and paths. A working directory is the folder on your computer where R will look for files to read in and where it will save files that you create. You can check your current working directory using the `getwd()` function.
 ```{r}
-
+getwd()
 ```
 
 What if you find that you are not in the correct working directory? You can change your working directory in two ways. The first is to look at the Session menu at the top of RStudio. Click on Session -> Set Working Directory -> Choose Directory. Then navigate to the folder you want to use as your working directory. 
@@ -39,17 +39,17 @@ In order to access the potential of R we need to assign values or other types of
 
 Assign a value to object 'x'. The '<-' symbol is read as 'gets'. In this case, x gets 42. Make sure that you are in the environment panel and you should see the value associated with 'x'. On a mac, you can push `option` and `-` to automatically generate the gets symbol.  
 ```{r}
-
+x <- 42
 ```
 
 To print the object to the screen, just type x.  
 ```{r}
-
+x
 ```
 
 Assign a value of 30 to a new object y.
 ```{r}
-
+y <- 30
 ```
 
 The = symbol works, but is not a convention followed by most programmers.
