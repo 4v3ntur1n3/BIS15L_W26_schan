@@ -24,6 +24,8 @@ library("tidyverse")
 ## Data Frames
 In part 1, you learned how to work with vectors and data frames. For the remainder of the course, we will work exclusively with data frames. Recall that data frames store multiple classes of data. Last time, you were shown how to build data frames by combining multiple vectors using  `tibble()`.  
 
+Only use tibble() when working in the tidyverse. Equivalent command in base R is 'data.frame()'
+
 ## Importing Data
 Scientists often make their data available as supplementary material associated with a publication. This is excellent scientific practice as it insures repeatability by showing exactly how analyses were performed. As data scientists, we capitalize on this by importing data directly into R.  
 
@@ -44,7 +46,7 @@ Notice that when the data are imported, you are presented with a message that te
 
 Use the `str()` function to get an idea of the data structure of `hot_springs`.  
 ```{r}
-
+str(hot_springs)
 ```
 
 ## Change column classes
@@ -54,35 +56,46 @@ Recall that factors are categorical variables that have a fixed number of possib
 
 What is the class of the scientist column? Let's change it to factor and then show the levels of that factor.  
 ```{r}
-
+names(hot_springs)
 ```
 
 ```{r}
-
+class(hot_springs$scientist)
 ```
 
 Did our change work? We can also check the levels of each column.
 ```{r}
-
+hot_springs$scientist <- as.factor(hot_springs$scientist)
 ```
+
+```{r}
+class(hot_springs$scientist)
+```
+
 
 ## Practice
 1. Change the class of the springs column to factor.
 ```{r}
-
+hot_springs$spring <- as.factor(hot_springs$spring)
+class(hot_springs$spring)
 ```
 
 2. What are the levels of the springs column?
 ```{r}
-
+levels(hot_springs$spring)
 ```
+
+```{r}
+table(hot_springs$spring)
+```
+
 
 ## Importing Data from a Published Study
 In your lab 3 folder there is another folder titled `data`. Inside the `data` folder there is a `.csv` titled `Gaeta_etal_CLC_data.csv`. Open this data and store them as an object called `fish`.  
 
 The data are from: Gaeta J., G. Sass, S. Carpenter. 2012. Biocomplexity at North Temperate Lakes LTER: Coordinated Field Studies: Large Mouth Bass Growth 2006. Environmental Data Initiative.  [link](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-ntl&identifier=267)  
 ```{r}
-
+fish <- read_csv("data/Gaeta_etal_CLC_data.csv") 
 ```
 
 ## Additional summary functions
