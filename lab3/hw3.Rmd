@@ -29,6 +29,7 @@ height_meters = c(8848.86, 8611, 8586, 8516, 8485)
 **2. Combine these vectors into a data frame called `mountains`.**
 ```{r}
 mountains <- tibble(name, height_feet, height_meters)
+mountains
 ```
 
 **3. What is the mean height of the mountains in feet?**
@@ -45,6 +46,7 @@ first_climbed <- c(1953, 1954, 1955, 1956, 1955)
 
 ```{r}
 mountains <- tibble(mountains, first_climbed)
+mountains
 ```
 
 **5. How many times have each of these mountains been climbed? Make a new vector `summits` and add it to the `mountains` data frame.**
@@ -63,6 +65,7 @@ Makalu summits: https://www.summitpost.org/makalu/150293
 ```{r}
 summits <- c(12884, 800, 532, 933, 206)
 mountains <- tibble(mountains, summits)
+mountains
 ```
 
 **6. Which mountain has the highest number of fatalities? Make a new vector `fatalities` and add it to the `mountains` data frame.**
@@ -71,13 +74,16 @@ Source: https://en.wikipedia.org/wiki/List_of_deaths_on_eight-thousanders
 ```{r}
 fatalities  <-  c(344, 96, 62, 32, 50)
 highest_fatality <- name[1]
+highest_fatality
 mountains <- tibble(mountains, fatalities)
+mountains
 ```
 
 **7. What is the fatality rate (i.e., fatalities divided by summits) for each mountain? Create a new vector `fatality_rate` and add it to the `mountains` data frame.**
 ```{r}
 fatality_rate = fatalities/summits
 mountains = tibble(mountains, fatality_rate)
+mountains
 ```
 
 **8. Write your data frame to a .csv file called `mountains_data`.**
