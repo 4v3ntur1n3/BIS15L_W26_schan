@@ -18,6 +18,7 @@ library("tidyverse")
 In order to answer the questions below, you will need to do a little online research.
 
 **1. Make three new vectors that show the name, height in feet, and height in meters of the five tallest mountains in the world.**
+
 Data from: https://www.nepalhikingteam.com/highest-5-mountains
 ```{r}
 name = c("Mount Everest", "K2", "Kangchenjunga", "Lhotse", "Makalu")
@@ -36,6 +37,7 @@ mean(mountains$height_feet)
 ```
 
 **4. When were each of these mountains first climbed (i.e. in what year)? Make a new vector `first_climbed` and add it to the `mountains` data frame.**
+
 Data from: https://www.nepalhikingteam.com/highest-5-mountains
 ```{r}
 first_climbed <- c(1953, 1954, 1955, 1956, 1955)
@@ -46,11 +48,17 @@ mountains <- tibble(mountains, first_climbed)
 ```
 
 **5. How many times have each of these mountains been climbed? Make a new vector `summits` and add it to the `mountains` data frame.**
+
 Sources:
-Mt. Everest summits: https://iantaylortrekking.com/blog/how-many-people-have-climbed-mount-everest/#:~:text=How%20Many%20People%20Have%20Reached,Norgay%2C%20successfully%20reached%20the%20top.
+
+Mt. Everest summits: https://iantaylortrekking.com/blog/how-many-people-have-climbed-mount-everest
+
 K2 summits: https://www.climbing.com/places/k2-worlds-second-highest-mountain/
+
 Kangchenjunga summits: https://en.wikipedia.org/wiki/List_of_deaths_on_eight-thousanders#Kangchenjunga
+
 Lhotse summits: https://explorersweb.com/through-the-unknown-to-the-impossible-lhotse-middle/
+
 Makalu summits: https://www.summitpost.org/makalu/150293
 ```{r}
 summits <- c(12884, 800, 532, 933, 206)
@@ -58,6 +66,7 @@ mountains <- tibble(mountains, summits)
 ```
 
 **6. Which mountain has the highest number of fatalities? Make a new vector `fatalities` and add it to the `mountains` data frame.**
+
 Source: https://en.wikipedia.org/wiki/List_of_deaths_on_eight-thousanders
 ```{r}
 fatalities  <-  c(344, 96, 62, 32, 50)

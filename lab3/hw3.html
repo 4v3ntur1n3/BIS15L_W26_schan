@@ -406,7 +406,8 @@ code chunks to run.</p>
 online research.</p>
 <p><strong>1. Make three new vectors that show the name, height in feet,
 and height in meters of the five tallest mountains in the
-world.</strong> Data from: <a href="https://www.nepalhikingteam.com/highest-5-mountains" class="uri">https://www.nepalhikingteam.com/highest-5-mountains</a></p>
+world.</strong></p>
+<p>Data from: <a href="https://www.nepalhikingteam.com/highest-5-mountains" class="uri">https://www.nepalhikingteam.com/highest-5-mountains</a></p>
 <pre class="r"><code>name = c(&quot;Mount Everest&quot;, &quot;K2&quot;, &quot;Kangchenjunga&quot;, &quot;Lhotse&quot;, &quot;Makalu&quot;)
 height_feet = c(29032, 28251, 28169, 27940, 27838)
 height_meters = c(8848.86, 8611, 8586, 8516, 8485)</code></pre>
@@ -419,22 +420,25 @@ feet?</strong></p>
 <pre><code>## [1] 28246</code></pre>
 <p><strong>4. When were each of these mountains first climbed (i.e. in
 what year)? Make a new vector <code>first_climbed</code> and add it to
-the <code>mountains</code> data frame.</strong> Data from: <a href="https://www.nepalhikingteam.com/highest-5-mountains" class="uri">https://www.nepalhikingteam.com/highest-5-mountains</a></p>
+the <code>mountains</code> data frame.</strong></p>
+<p>Data from: <a href="https://www.nepalhikingteam.com/highest-5-mountains" class="uri">https://www.nepalhikingteam.com/highest-5-mountains</a></p>
 <pre class="r"><code>first_climbed &lt;- c(1953, 1954, 1955, 1956, 1955)</code></pre>
 <pre class="r"><code>mountains &lt;- tibble(mountains, first_climbed)</code></pre>
 <p><strong>5. How many times have each of these mountains been climbed?
 Make a new vector <code>summits</code> and add it to the
-<code>mountains</code> data frame.</strong> Sources: Mt. Everest
-summits: <a href="https://iantaylortrekking.com/blog/how-many-people-have-climbed-mount-everest/#" class="uri">https://iantaylortrekking.com/blog/how-many-people-have-climbed-mount-everest/#</a>:~:text=How%20Many%20People%20Have%20Reached,Norgay%2C%20successfully%20reached%20the%20top.
-K2 summits: <a href="https://www.climbing.com/places/k2-worlds-second-highest-mountain/" class="uri">https://www.climbing.com/places/k2-worlds-second-highest-mountain/</a>
-Kangchenjunga summits: <a href="https://en.wikipedia.org/wiki/List_of_deaths_on_eight-thousanders#Kangchenjunga" class="uri">https://en.wikipedia.org/wiki/List_of_deaths_on_eight-thousanders#Kangchenjunga</a>
-Lhotse summits: <a href="https://explorersweb.com/through-the-unknown-to-the-impossible-lhotse-middle/" class="uri">https://explorersweb.com/through-the-unknown-to-the-impossible-lhotse-middle/</a>
-Makalu summits: <a href="https://www.summitpost.org/makalu/150293" class="uri">https://www.summitpost.org/makalu/150293</a></p>
+<code>mountains</code> data frame.</strong></p>
+<p>Sources:</p>
+<p>Mt. Everest summits: <a href="https://iantaylortrekking.com/blog/how-many-people-have-climbed-mount-everest" class="uri">https://iantaylortrekking.com/blog/how-many-people-have-climbed-mount-everest</a></p>
+<p>K2 summits: <a href="https://www.climbing.com/places/k2-worlds-second-highest-mountain/" class="uri">https://www.climbing.com/places/k2-worlds-second-highest-mountain/</a></p>
+<p>Kangchenjunga summits: <a href="https://en.wikipedia.org/wiki/List_of_deaths_on_eight-thousanders#Kangchenjunga" class="uri">https://en.wikipedia.org/wiki/List_of_deaths_on_eight-thousanders#Kangchenjunga</a></p>
+<p>Lhotse summits: <a href="https://explorersweb.com/through-the-unknown-to-the-impossible-lhotse-middle/" class="uri">https://explorersweb.com/through-the-unknown-to-the-impossible-lhotse-middle/</a></p>
+<p>Makalu summits: <a href="https://www.summitpost.org/makalu/150293" class="uri">https://www.summitpost.org/makalu/150293</a></p>
 <pre class="r"><code>summits &lt;- c(12884, 800, 532, 933, 206)
 mountains &lt;- tibble(mountains, summits)</code></pre>
 <p><strong>6. Which mountain has the highest number of fatalities? Make
 a new vector <code>fatalities</code> and add it to the
-<code>mountains</code> data frame.</strong> Source: <a href="https://en.wikipedia.org/wiki/List_of_deaths_on_eight-thousanders" class="uri">https://en.wikipedia.org/wiki/List_of_deaths_on_eight-thousanders</a></p>
+<code>mountains</code> data frame.</strong></p>
+<p>Source: <a href="https://en.wikipedia.org/wiki/List_of_deaths_on_eight-thousanders" class="uri">https://en.wikipedia.org/wiki/List_of_deaths_on_eight-thousanders</a></p>
 <pre class="r"><code>fatalities  &lt;-  c(344, 96, 62, 32, 50)
 highest_fatality &lt;- name[1]
 mountains &lt;- tibble(mountains, fatalities)</code></pre>
