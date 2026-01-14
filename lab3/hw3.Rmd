@@ -58,18 +58,22 @@ mountains <- tibble(mountains, summits)
 ```
 
 **6. Which mountain has the highest number of fatalities? Make a new vector `fatalities` and add it to the `mountains` data frame.**
+Source: [link](https://en.wikipedia.org/wiki/List_of_deaths_on_eight-thousanders)
 ```{r}
-fatalities  <-  c()
+fatalities  <-  c(344, 96, 62, 32, 50)
+highest_fatality <- name[1]
+mountains <- tibble(mountains, fatalities)
 ```
 
 **7. What is the fatality rate (i.e., fatalities divided by summits) for each mountain? Create a new vector `fatality_rate` and add it to the `mountains` data frame.**
 ```{r}
-
+fatality_rate = fatalities/summits
+mountains = tibble(mountains, fatality_rate)
 ```
 
 **8. Write your data frame to a .csv file called `mountains_data`.**
 ```{r}
-
+write_csv(mountains, "mountains_data")
 ```
 
 **9. Clear your environment panel by clicking on the broom icon. Then read in your `mountains_data.csv` file to a new object called `mountains`.**
