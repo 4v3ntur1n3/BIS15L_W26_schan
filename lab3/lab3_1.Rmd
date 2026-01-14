@@ -64,7 +64,7 @@ my_vector_sequence[15]
 
 2. We can use operators such as <, >, ==, <==, etc. Show all values in `my_vector_sequence` that are less than or equal to 10. 
 ```{r}
-my_vector_sequence[] 
+my_vector_sequence<=10
 ```
 
 3. If you use `[]` then you only get the values, not the logical evaluation of the entire vector. Experiment with this by adjusting the chunk below.    
@@ -108,7 +108,7 @@ str(hbirds)
 
 Let's use lowercase names when we create the data frame. We just changed to lowercase here, but we could use any names we wish.  
 ```{r}
-
+hbirds <- tibble(sex = Sex, length = Length, weight = Weight)
 ```
 
 ## Accessing Data Frame Columns and Rows 
@@ -133,7 +133,7 @@ mean(hbirds$Length)
 ## Writing Data to File
 We should save our hbirds data frame so we can use it again later! There are many ways to save data in R, here we write our data frame to a csv file. We use `row.names = FALSE` to avoid row numbers from printing out. 
 ```{r}
-write_csv(hbirds, "hbirds.csv", row.names = FALSE)
+write_csv(hbirds, "hbirds.csv")
 ```
 
 ## That's it! Let's take a break and then move on to part 2!  
