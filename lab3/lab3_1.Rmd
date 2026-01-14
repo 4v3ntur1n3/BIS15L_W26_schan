@@ -133,7 +133,7 @@ mean(hbirds$Length)
 ## Writing Data to File
 We should save our hbirds data frame so we can use it again later! There are many ways to save data in R, here we write our data frame to a csv file. We use `row.names = FALSE` to avoid row numbers from printing out. 
 ```{r}
-hbirds 
+write_csv(hbirds, "hbirds.csv", row.names = FALSE)
 ```
 
 ## That's it! Let's take a break and then move on to part 2!  
