@@ -127,7 +127,7 @@ hbirds[,3]
 ## Calculations
 We can use the `$` to access a column (variable) in a data frame. Here we calculate the mean length of the hummingbirds.  
 ```{r}
-mean(hbirds$Length)
+mean(hbirds$length)
 ```
 
 ## Writing Data to File
