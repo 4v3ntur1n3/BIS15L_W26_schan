@@ -20,7 +20,6 @@ For this homework, we will be using the `msleep` dataset from the `ggplot2` pack
 
 ```{r}
 msleep <- msleep
-?msleep
 ```
 
 
@@ -35,6 +34,7 @@ glimpse(msleep)
 
 ```{r}
 names(msleep)
+?msleep
 ```
 
 
@@ -43,10 +43,11 @@ names(msleep)
 ```{r}
 ggplot(data = msleep,
        mapping = aes(x = vore))+
-  geom_bar(mapping = aes(fill = vore))+
+  geom_bar(mapping = aes(fill = vore),color="black")+
   labs(title="Number of Mammals in Each Vore Type", x="Vore Type")
 ```
 
+The herbi vore type is the most represented mammal in this data.
 
 **4. What is the average length of time that mammal sleeps?**
 ```{r}
@@ -77,14 +78,36 @@ ggplot(data = msleep,
 ```{r}
 ggplot(data = msleep,
        mapping = aes(x = bodywt, y = sleep_total))+
-  geom_point()+
-  geom_smooth(method=lm)
+  geom_point(mapping=aes(color=vore))+
+  geom_smooth(method=lm, se=T)+
+  scale_x_log10()+
+  labs(title="Mammal Body Weight vs. Total Sleep Time", x="Body Weight (log10(kg))", y="Total Sleep Time (hours)")
 ```
 
+There is a negative relationship between body weight and total sleep time
 
 **8. Which vore type tends to sleep the most? Build a plot to support your answer.**
+```{r}
+ggplot(data=msleep,
+       mapping=aes(x=vore, y=sleep_total))+
+  geom_boxplot(mapping=aes(fill=vore))+
+  labs(title="Total Hours of Sleep by Vore Type", x="Vore Type", y="Total Sleep Time (hours)")
+```
+
+The insecti vore type tends to sleep the most.
 
 **9. Is there a relationship between brain weight and body weight? Build a plot to support your answer.**
+```{r}
+ggplot(data=msleep,
+       mapping=aes(x=brainwt, y=bodywt))+
+  geom_point(mapping=aes(color=vore))+
+  geom_smooth(method=lm, se=T)+
+  scale_x_log10()+
+  scale_y_log10()+
+  labs(title="Mammal Brain Weight vs. Body Weight", x="Brain Weight (log10(kg))", y="Body Weight (log10(kg))")
+```
+
+There is a positive relationship with brain weight and body weight of mammals.
 
 **10. Build one plot of your choice that provides additional insight into the msleep dataset. Be sure to include appropriate labels and a title.**
 ```{r}
@@ -92,7 +115,8 @@ ggplot(data=msleep,
        mapping=aes(x=brainwt, y=sleep_rem))+
   geom_point(mapping=aes(color=vore))+
   geom_smooth(method=lm, se=T)+
-  scale_x_log10()
+  scale_x_log10()+
+  labs(title="Mammal Brain Weight vs. REM Sleep Time", x="Brain Weight (log10(kg))", y="REM Sleep Time (hours)")
 ```
 
 
