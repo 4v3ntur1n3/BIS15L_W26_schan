@@ -35,7 +35,7 @@ summary(homerange)
 glimpse(homerange)
 ```
 
-Data in `homerange` does have NA's.
+The data in `homerange` does have NA's.
 
 **3. Which animal groups are represented in the data? Make a plot that shows the number in each class.**
 ```{r}
