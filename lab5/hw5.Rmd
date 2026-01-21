@@ -1,6 +1,6 @@
 ---
 title: "Homework 5"
-author: "Your Name Here"
+author: "Stanley Chan"
 date: "`r Sys.Date()`"
 output:
   html_document: 
@@ -28,12 +28,14 @@ homerange <- read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
 
 **2. What is the structure of the `homerange` data? Does it have any NA's? Do a quick exploratory analysis of your choice below.**
 ```{r}
-glimpse(homerange)
+summary(homerange)
 ```
 
 ```{r}
-summary(homerange)
+glimpse(homerange)
 ```
+
+Data in `homerange` does have NA's.
 
 **3. Which animal groups are represented in the data? Make a plot that shows the number in each class.**
 ```{r}
@@ -43,10 +45,11 @@ names(homerange)
 ```{r}
 ggplot(data = homerange,
        mapping = aes(x=class))+
-  geom_bar(mapping = aes(fill=class))+
+  geom_bar(mapping = aes(fill=class),color="black")+
   labs(title = "Number of Animals in Each Class", x = "Animal Class")
 ```
 
+The classes, actinopterygii, aves, mammalia, and reptilia, are represented by this data.
 
 **4. Are there more carnivores or herbivores represented in the data? Make a plot that shows the number in each trophic guild.**
 ```{r}
@@ -56,29 +59,45 @@ ggplot(data=homerange,
   labs(title="Number of Animals in Each Trophic Guild", x="Trophic Guild")
 ```
 
+There are more carnivores than herbivores represented in this data.
+
 **5. Which herbivorous mammals have homeranges greater than 1,000,000 m²? Show only the common name, order, mean homerange size, and mean body mass. Arrange the data in descending order by homerange size and show only the top 10 species.**
 ```{r}
 homerange %>% 
-  select()
+  select(common.name, order, mean.hra.m2, mean.mass.g, trophic.guild) %>% 
+  filter(trophic.guild=="herbivore") %>% 
+  select(common.name, order, mean.hra.m2, mean.mass.g) %>% 
+  filter(mean.hra.m2>1000000) %>% 
+  slice_max(mean.hra.m2, n=10)
 ```
 
 **6. Which two species have the largest and smallest homerange sizes?**
 ```{r}
-
+homerange %>% 
+  select(common.name, mean.hra.m2) %>% 
+  slice_max(mean.hra.m2, n=1)
 ```
 
 ```{r}
-
+homerange %>% 
+  select(common.name, mean.hra.m2) %>% 
+  slice_min(mean.hra.m2, n=1)
 ```
 
 **7. Which carnivorous mammals have the largest homeranges?**
 ```{r}
-
+homerange %>% 
+  select(common.name, mean.hra.m2, trophic.guild) %>% 
+  filter(trophic.guild=="carnivore") %>% 
+  slice_max(mean.hra.m2, n=10)
 ```
+
+Here are the top ten largest homeranges of the carnivorous mammals in this data.
 
 **8. Is there a relationship between body mass and homerange size? Make a scatterplot to show this relationship. Be sure to include appropriate labels and a title.**
 ```{r}
-
+ggplot(data=homerange,
+       mapping=aes(x=))
 ```
 
 **9. Use filter to extract the data for only birds and mammals. Then make a plot that compares the homerange sizes of these two groups. Be sure to include appropriate labels and a title.**
