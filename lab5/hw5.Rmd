@@ -98,18 +98,45 @@ Here are the top ten largest homeranges of the carnivorous mammals in this data.
 ```{r}
 ggplot(data=homerange,
        mapping=aes(x=log10.mass, y=log10.hra))+
-  geom_point(mapping=aes(color=class))
+  geom_point(mapping=aes(color=class))+
+  geom_smooth(method=lm, se=T)+
+  labs(title="Body Mass vs. Homerange Size", x="Body Mass (log10(g))", y="Homerange Size (log10(m^2))")
 ```
 
 **9. Use filter to extract the data for only birds and mammals. Then make a plot that compares the homerange sizes of these two groups. Be sure to include appropriate labels and a title.**
 ```{r}
-
+birds_n_mammals <- homerange %>% 
+  filter(taxon=="birds" | taxon=="mammals") %>% 
+  select(taxon, log10.hra)
+birds_n_mammals
+ggplot(data=birds_n_mammals,
+       mapping=aes(x=taxon, y=log10.hra))+
+  geom_boxplot(mapping=aes(fill=taxon))+
+  labs(title="Comparison of Homerange Sizes Between Birds and Mammals", x="Taxon", y="Homerange Size (log10(m^2))")
 ```
 
 **10. Do one additional exploratory analysis of your choice. Before writing the code, write the question you are trying to answer. The question should be biologically meaningful and appropriate for the data. It must include at least one `filter()`, `select()`, and `arrange()`.**
-```{r}
 
+One may assume that the larger an animal is, the larger their prey needs to be to acquire enough energy and nutrients. However, is this truly the case? Is there a positive association between carnivore predator mass and their corresponding prey mass in this data?
+
+```{r}
+carnivore_prey <- homerange %>% 
+  filter(trophic.guild=="carnivore") %>% 
+  select(class, log10.mass, preymass) %>% 
+  arrange(desc(preymass))
+carnivore_prey
 ```
+
+```{r}
+ggplot(data=carnivore_prey,
+       mapping=aes(x=log10.mass, y=preymass))+
+  geom_point(mapping=aes(color=class))+
+  scale_y_log10()+
+  geom_smooth(method=lm, se=T)+
+  labs(title="Predator Mass vs. Prey Mass", x="Predator Mass (log10(g))", y="Prey Mass (log10(g))")
+```
+
+There is a positive relationship between carnivore predator mass and prey mass in this data.
 
 ## Knit and Upload
 Please knit your work as an .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
