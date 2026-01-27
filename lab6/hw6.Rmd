@@ -50,58 +50,89 @@ gabon
 
 **4. Use `mutate()` Change the variables `HuntCat`, `LandUse`, and `TransectID` to factors. Be sure to store the output as a new dataframe and use it for the remaining questions.**
 ```{r}
-gabon %>% 
+gabon <- gabon %>% 
   mutate(across(c(hunt_cat, land_use, transect_id), as.factor))
 ```
 
 **5. Make a plot that shows the number of transects for each land use type.**
 ```{r}
-
+names(gabon)
 ```
 
 ```{r}
-
+gabon %>%
+  ggplot(mapping=aes(x=land_use))+
+  geom_bar(mapping=aes(fill=land_use))+
+  labs(title="Number of Transects per Land Use Type", x="Land Use Type")
 ```
 
 **6. How does vegetation richness compare among land use types?**
 ```{r}
-
+gabon %>% 
+  ggplot(mapping=aes(x=land_use, y=veg_rich))+
+  geom_boxplot(mapping=aes(fill=land_use))+
+  labs(title="Vegetation Richness Across Land Use Types", x="Land Use Types", y="Number of Tree Species")
 ```
+
+The logging type has the highest range and the park type has the highest median. Both logging and neither types seem to have a larger spread of data while the park type is more concentrated.
 
 **7. For which land use type (national parks, logging, or neither) is average all species diversity the greatest?**
 ```{r}
-
+land_use_and_diversity <- gabon %>% 
+  select(land_use, diversity_all_species)
 ```
 
 ```{r}
-
+land_use_and_diversity %>% 
+  filter(land_use=="park") %>%
+  pull(diversity_all_species) %>% 
+  mean()
 ```
 
 ```{r}
-
+land_use_and_diversity %>% 
+  filter(land_use=="logging") %>%
+  pull(diversity_all_species) %>% 
+  mean()
 ```
 
 ```{r}
-
+land_use_and_diversity %>% 
+  filter(land_use=="neither") %>%
+  pull(diversity_all_species) %>% 
+  mean()
 ```
+
+The park type had the greatest average all species diversity.
 
 **8. Is there a relationship between vegetation richness and mammal species richness?**
 ```{r}
-
+gabon %>% 
+  ggplot(mapping=aes(x=veg_rich,y=rich_mammal_species))+
+  geom_point(mapping=aes(color=land_use))+
+  geom_smooth(method="lm", se=T)+
+  labs(title="Vegetation Richness vs. Mammal Species Richness", x="Number of Tree Species", y="Number of Mammal Species")
 ```
+
+There is a positive relationship between vegetation richness and mammal species richness.
 
 **9. Use `filter` to find all transects that have greater than 15 tree species or a breast height diameter between 50 and 60cm.  **
 ```{r}
-
+names(gabon)
 ```
 
 ```{r}
-
+gabon %>% 
+  filter(veg_rich>15 | between(veg_dbh, 50, 60)) %>% 
+  select(transect_id, veg_rich, veg_dbh)
 ```
 
 **10.Which transects and land use types have more than 10 tree species and 10 mammal species? Use `arrange()` to sort by the number of tree species.**
 ```{r}
-
+gabon %>% 
+  filter(veg_rich>10 & rich_mammal_species>10) %>% 
+  select(transect_id, land_use, veg_rich, rich_mammal_species) %>% 
+  arrange(veg_rich)
 ```
 
 ## Knit and Upload
