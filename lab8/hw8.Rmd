@@ -64,7 +64,7 @@ fisheries_clean %>%
   summarize(n_species_taxcode=n_distinct(taxonomic_code))
 ```
 
-The number of unique species based on common name and taxonomic code are relatively close to each other with a difference of 332 unique species.
+According to the data, there are 3390 distinct common names and 3722 distinct taxonomic codes. The number of unique species based on common name and taxonomic code are relatively close to each other, with a difference of 332 unique species.
 
 6. In 2023, what were the top five countries that had the highest overall catch?
 ```{r}
@@ -85,7 +85,7 @@ fisheries_clean %>%
   slice_head(n=10)
 ```
 
-NEI stands for "Not Elsewhere Included" and represents fish catches that are unidentified or mixed. This could be a problem for fisheries management because they can't keep track of these unidentified fishes, which could lead to overfishing and endangerment of certain species.
+NEI stands for "Not Elsewhere Included" and represents fish catches that are unidentified or mixed. This could be a problem for fisheries management because they can't keep track of these unidentified fishes, which could lead to over-fishing and endangerment of certain species.
 
 8. For the species that was caught the most above (not NEI), which country had the highest catch in 2023?
 ```{r}
@@ -106,15 +106,26 @@ fisheries_clean %>%
   summarize(overall_catch_wpoll=sum(catch)) %>% 
   ggplot(aes(x=period, y=overall_catch_wpoll))+
   geom_point()+
-  geom_smooth(method="lm")
+  labs(title="Overall Catches of Alaska Pollock in the Last Decade", x="Period (years)", y="Number of Alaska Pollock Caught")
 ```
+
+Fishing of this species has increased from the start to the end of the last decade.
 
 10. Perform one exploratory analysis of your choice. Make sure to clearly state the question you are asking before writing any code.
-
+With the global population increasing each year, has the overall catches all all fish increased each year to compensate for it?
+* To reduce x-axis clutter, I'll be take the overall catches between 5 years.
 
 ```{r}
-
+fisheries_clean %>% 
+  filter(period %in% c(1950, 1955, 1960, 1965, 1970, 1975, 1980, 1985, 1990, 1995, 2000, 2005, 2010, 2015, 2020)) %>% 
+  group_by(period) %>% 
+  summarize(overall_catches=sum(catch)) %>% 
+  ggplot(aes(x=period, y=overall_catches))+
+  geom_point()+
+  labs(title="Global Overall Catches Every 5 Years", x="Period (years)", y="Number of Fish Caught")
 ```
+
+Based on the graph, there is a noticeable increase in the overall number of fish caught in the world from 1950 to 1995. However, around 1995 is where the graph stays at about 92,500,000 fish caught and it persists through the future years up to 2020. Without doing extensive research, I could assume that the increased rate of fish caught slowed down due to regulations involving endangered fish species. Future research could be done to take specific species of endangered fish to see if its rate of being caught matches the rate that this overall fish catches graph displays.
 
 ## Knit and Upload
 Please knit your work as an .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
