@@ -37,43 +37,54 @@ glimpse(sydneybeaches)
 ```
 
 2. Are these data "tidy" per the definitions of the tidyverse? How do you know? Are they in wide or long format?
-These data aren't perfectly tidy because the variables aren't in lowercase and separated by. Other than how the variable names were formatted
-These data are in long format since values of a variable are repeating.
+These data aren't perfectly tidy because the variables aren't in lowercase and separated by underscores. Other than how the variable names were formatted, the data would be considered "tidy" as there is a variable per column, an observation per row, and a value per cell. These data are in long format since values of a variable are repeating.
 
 ```{r}
 sydneybeaches <- sydneybeaches %>% 
-  clean_names() #why can both long format and wide format data be tidy?
+  clean_names()
 ```
 
 3. We are only interested in the variables site, date, and enterococci_cfu_100ml. Make a new object focused on these variables only. Name the object `sydneybeaches_long`
 ```{r}
 sydneybeaches_long <- sydneybeaches %>% 
-  select(Site, Date, `Enterococci (cfu/100ml)`)
+  select(site, date, enterococci_cfu_100ml)
 ```
 
 4. Pivot the data such that the dates are column names and each beach only appears once (wide format). Name the object `sydneybeaches_wide`
 ```{r}
-
+sydneybeaches_wide <- sydneybeaches_long %>% 
+  pivot_wider(names_from="date",
+              values_from="enterococci_cfu_100ml")
 ```
 
 5. Pivot the data back so that the dates are data and not column names.
 ```{r}
-
+sydneybeaches_wide %>% 
+  pivot_longer(-site,
+               names_to = "date",
+               values_to = "enterococci_cfu_100ml",
+               values_drop_na = T)
 ```
 
 6. We haven't dealt much with dates yet, but separate the date into columns day, month, and year. Do this on the `sydneybeaches_long` data.
 ```{r}
-
+sydneybeaches_long_date <- sydneybeaches_long %>% 
+  separate(date, into=c("day", "month", "year"), sep="/")
 ```
 
 7. What is the average `enterococci_cfu_100ml` by year for each beach. Think about which data you will use- long or wide.
+Since the enterococci variable is defined in long, I could possibly use the group_by function and summarize with the mean.
 ```{r}
-
+sydneybeaches_long_mean <- sydneybeaches_long_date %>% 
+  group_by(site, year) %>% 
+  summarize(mean_enterococci=mean(enterococci_cfu_100ml, na.rm=T))
 ```
 
 8. Make the output from question 7 easier to read by pivoting it to wide format.
 ```{r}
-
+sydneybeaches_wide_mean <- sydneybeaches_long_mean %>% 
+  pivot_wider(names_from = "year",
+              values_from = "mean_enterococci")
 ```
 
 9. What was the most polluted beach in 2013?
