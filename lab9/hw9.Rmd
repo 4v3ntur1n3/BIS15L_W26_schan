@@ -88,17 +88,21 @@ sydneybeaches_wide_mean <- sydneybeaches_long_mean %>%
 ```
 
 9. What was the most polluted beach in 2013?
+On average, Little Bay Beach had the most pollution in 2013.
 ```{r}
-
+sydneybeaches_long_mean %>% 
+  filter(year=="2013") %>% 
+  arrange(desc(mean_enterococci))
 ```
 
+10. Explore the data! Do one analysis of your choice that includes a minimum of three lines of code.
+What is the overall accumulation of enterococci in each beach over the years provided in the data? Which beach has the lowest?
 ```{r}
-
-```
-
-10. Explore the data! Do one analysis of your choice that includes a minimum of three lines of code.  
-```{r}
-
+sydneybeaches %>% 
+  group_by(site) %>% 
+  summarize(overall_enterococci=sum(enterococci_cfu_100ml, na.rm=T),
+            mean_enterococci=mean(enterococci_cfu_100ml, na.rm=T)) %>% 
+  arrange(overall_enterococci)
 ```
 
 ## Knit and Upload
