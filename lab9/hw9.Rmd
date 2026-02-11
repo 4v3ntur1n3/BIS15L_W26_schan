@@ -73,6 +73,7 @@ sydneybeaches_long_date <- sydneybeaches_long %>%
 ```
 
 7. What is the average `enterococci_cfu_100ml` by year for each beach. Think about which data you will use- long or wide.
+
 Since the enterococci variable is defined in long, I could possibly use the group_by function and summarize with the mean.
 ```{r}
 sydneybeaches_long_mean <- sydneybeaches_long_date %>% 
@@ -88,6 +89,7 @@ sydneybeaches_wide_mean <- sydneybeaches_long_mean %>%
 ```
 
 9. What was the most polluted beach in 2013?
+
 On average, Little Bay Beach had the most pollution in 2013.
 ```{r}
 sydneybeaches_long_mean %>% 
@@ -96,7 +98,8 @@ sydneybeaches_long_mean %>%
 ```
 
 10. Explore the data! Do one analysis of your choice that includes a minimum of three lines of code.
-What is the overall accumulation of enterococci in each beach over the years provided in the data? Which beach has the lowest?
+
+What is the overall accumulation and mean of enterococci in each beach over the years provided in the data? Which beach has the lowest?
 ```{r}
 sydneybeaches %>% 
   group_by(site) %>% 
@@ -104,6 +107,8 @@ sydneybeaches %>%
             mean_enterococci=mean(enterococci_cfu_100ml, na.rm=T)) %>% 
   arrange(overall_enterococci)
 ```
+
+Clovelly Beach has the lowest overall and mean enterococci,
 
 ## Knit and Upload
 Please knit your work as an .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
