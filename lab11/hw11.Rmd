@@ -21,8 +21,6 @@ Make sure to use the formatting conventions of RMarkdown to make your report nea
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 library(janitor)
-install.packages("ggthemes")
-library(ggthemes)
 ``` 
 
 ```{r}
@@ -157,12 +155,14 @@ gapminder %>%
   slice_head(n=4)
 ```
 
+From the plot, all countries have had a net gain in life expectancy from 1925 to 2025. Eswatini and Lesotho had a significant drop in life expectancy from 1990 to 2005. Central African Republic has a drop from 1985 to 2000. Solomon Islands had a normal life expectancy growth that slowed down from around 1980 to 2025.
 ```{r}
 gapminder %>% 
   filter(country %in% c("Lesotho", "Central African Republic", "Eswatini", "Solomon Islands")) %>% 
   ggplot(aes(x=year, y=lex))+
   geom_line(mapping=aes(color=country))+
   facet_wrap(~country, ncol=2, labeller=label_both)+
+  scale_x_continuous(breaks=seq(1925, 2025, by=10))+
   theme(legend.position="none")+
   labs(title="Life Expectancy of the Four Countries with the Lowest Life Expectancies in 2025,
   from 1925 to 2025", x="Year", y="Life Expectancy (years)")
