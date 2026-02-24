@@ -134,7 +134,19 @@ leaflet(spiders) %>%
 
 Build the same interactive map using default OpenStreet maps.
 ```{r}
-
+leaflet(spiders) %>% 
+  addTiles() %>% 
+  addProviderTiles(providers$Stadia.StamenTerrain) %>% 
+  addCircleMarkers(
+    lng = ~longitude,
+    lat = ~latitude,
+    radius=2,
+    stroke=F,
+    fillOpacity=0.7
+  ) %>% 
+  addScaleBar(position="bottomleft") %>% 
+  fitBounds(lng1=lon_min, lat1=lat_min,
+            lng2=lon_max, lat2=lat_max)
 ```
 
 ## Practice
@@ -142,26 +154,46 @@ For this practice we will use data on the distribution of grizzly bears in Alask
 
 1. Load the `grizzly` data and evaluate its structure.  
 ```{r message=FALSE, warning=FALSE}
-
+grizzly <- read_csv("data/bear-sightings.csv")
 ```
 
 2. Use the range of the latitude and longitude to build an appropriate bounding box for your map.  
 ```{r}
-
+grizzly %>% 
+  select(longitude, latitude) %>% 
+  summary()
+lonminbear <- -166.2
+lonmaxbear <- -131.3
+latminbear <- 55.02
+latmaxbear <- 70.37
+lonbear <- c(lonminbear, lonmaxbear)
+latbear <- c(latminbear, latmaxbear)
+bboxbear <-  make_bbox(lonbear, latbear, f=0.3)
 ```
 
 3. Load a map from `stadiamaps` in a `stamen_terrain` projection and display the map.
 ```{r}
-
+mapbear <- get_stadiamap(bboxbear, maptype="stamen_terrain", zoom=5)
 ```
 
 ```{r}
-
+ggmap(mapbear)
 ```
 
 4. Build a final map that overlays the recorded observations of grizzly bears in Alaska.  
 ```{r}
-
+leaflet(grizzly) %>% 
+  addProviderTiles(providers$Stadia.StamenTerrain) %>% 
+  addCircleMarkers(
+    lng = ~longitude,
+    lat = ~latitude,
+    radius=2,
+    stroke=F,
+    fillOpacity=0.7
+  ) %>% 
+  addScaleBar(position="bottomleft") %>% 
+  fitBounds(lng1=lonminbear, lat1=latminbear,
+            lng2=lonmaxbear, lat2=latmaxbear)
 ```
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)
