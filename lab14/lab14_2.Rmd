@@ -255,12 +255,40 @@ Congratulations, you made your first shiny app!
 
 1. Please load the data as a new object `homerange` and have a look at the column names.
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
+homerange <- read_csv("data/Tamburelloetal_HomeRangeDatabase.csv") %>% 
+  clean_names()
+```
 
+```{r}
+homerange %>% 
+  ggplot(aes(x=locomotion, fill=trophic_guild))+
+  geom_bar(position="dodge")
 ```
 
 2.  Build a shiny app that produces a barplot that explores `locomotion` type with a fill reaction for the variables `trophic_guild` and `thermoregulation`.
 ```{r, eval=F, echo=T}
+library(shiny)
 
+ui <- fluidPage(
+  radioButtons("x",
+              "Select Fill Variable",
+              choices=c("trophic_guild",
+                        "thermoregulation"),
+              selected="trophic_guild"),
+  
+  plotOutput("plot")
+)
+
+server <- function(input, output, session) {
+  output$plot <- renderPlot({
+    ggplot(data=homerange,
+           aes_string(x="locomotion", fill=input$x))+
+      geom_bar(position="dodge", alpha=0.8, color="black", na.rm=T)+
+      labs(x=NULL, y=NULL, fill="Fill Variable")
+  })
+}
+
+shinyApp(ui, server)
 ```
 
 --\>[Home](https://jmledford3115.github.io/datascibiol/)
