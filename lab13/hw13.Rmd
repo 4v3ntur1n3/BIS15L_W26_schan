@@ -36,21 +36,82 @@ glimpse(amniota)
 summary(amniota)
 ```
 
-From the analysis functions, I see that the NAs in this data set are represented as -999, -999.0, and -999.000.
+From the analysis functions, I see that the NAs in this data set are represented as -999, -999.0, and -999.000. 
 
 2. Make any necessary replacements in the data such that all NA's appear as "NA". 
 
 ```{r}
-
+amniota <- amniota %>% 
+  replace_with_na(replace=list(subspecies=-999,
+                               female_maturity_d=-999,
+                               litter_or_clutch_size_n=-999.000,
+                               litters_or_clutches_per_y=-999.0,
+                               adult_body_mass_g=-999,
+                               maximum_longevity_y=-999.000,
+                               gestation_d=-999.0,
+                               weaning_d=-999.0,
+                               birth_or_hatching_weight_g=-999.00,
+                               weaning_weight_g=-999,
+                               egg_mass_g=-999.00,
+                               incubation_d=-999.0,
+                               fledging_age_d=-999.0,
+                               longevity_y=-999.000,
+                               male_maturity_d=-999.0,
+                               inter_litter_or_interbirth_interval_y=-999.000,
+                               female_body_mass_g=-999.0,
+                               male_body_mass_g=-999.0,
+                               no_sex_body_mass_g=-999,
+                               egg_width_mm=-999.0,
+                               egg_length_mm=-999.0,
+                               fledging_mass_g=-999.0,
+                               adult_svl_cm=-999.0,
+                               male_svl_cm=-999.0,
+                               female_svl_cm=-999.0,
+                               birth_or_hatching_svl_cm=-999.0,
+                               female_svl_at_maturity_cm=-999.0,
+                               female_body_mass_at_maturity_g=-999.0,
+                               no_sex_svl_cm=-999.0,
+                               no_sex_maturity_d=-999.0))
 ```
 
 3. How many total NA's are in the data set? Use the package `naniar` to produce a summary, including percentages, of missing data in each column for the `amniota` data.
 
+```{r}
+amniota %>% 
+  miss_var_summary()
+```
+
 4. Double check your replacement using `summary`. Do you see any other potential issues? If so, fix them.
+
+There is also a minimum of -30258.7 in female_maturity_d.
+```{r}
+summary(amniota)
+```
+
+```{r}
+amniota <- amniota %>% 
+  mutate(female_maturity_d=na_if(female_maturity_d, -30258.711))
+```
 
 5. Use `naniar` to visualize the number of NA's in each variable. Which variables have the most NA's?
 
+The variables subspecies and female_body_mass_at_maturity_g are relatively close to each other and have the most NA's.
+```{r}
+amniota %>% 
+  gg_miss_var()+
+  labs(title="NA Count Across All Variables of Amniota")
+```
+
 6. Calculate the number of NAs in the `egg_mass_g` column sorted by taxonomic class; i.e. how many NA's are present in the `egg_mass_g` column in birds, mammals, and reptiles? Does this results make sense biologically? How do these results affect your interpretation of NA's?
+
+From the table, Reptilia has 6040 NA's, Mammalia has 4953 NA's, and Aves has 4914 NA's. The NA's in these results make sense biologically because almost all mammals don't lay eggs and (almost all?) species in Aves exclusively lay eggs. Some reptile species lay eggs and some give live birth. I would interpret NA's in this case as either not applicable like the case of Mammalia species or not measured, which is what I think the case is for some species of Aves.
+```{r}
+amniota %>% 
+  select(class, egg_mass_g) %>% 
+  group_by(class) %>% 
+  miss_var_summary() %>% 
+  arrange(desc(n_miss))
+```
 
 ## Knit and Upload
 Please knit your work as an .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean! 
