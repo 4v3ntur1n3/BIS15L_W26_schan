@@ -72,6 +72,10 @@ polar_bears <-
 
 1. (2 points) List the variable names and use a summary function to get an idea of the data structure.
 ```{r}
+names(polar_bears)
+```
+
+```{r}
 glimpse(polar_bears)
 ```
 
