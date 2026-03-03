@@ -1,0 +1,132 @@
+lab 3: vectors and dataframes
+use logical operators inside vector brackets
+tibble to create a dataframe
+$ to access a column
+
+lab 4: plots
+
+lab 5:
+select()
+can be used with contains, starts_with, ends_with, where() inside
+rename()
+filter()
+arrange()
+
+lab 6:
+`distinct()` to find unique observations in rows.    
+`mutate()` to create new columns from existing columns.    
+`mutate()` with `across` and `where` to transform multiple columns that meet specific criteria.
+`if_else()`
+
+lab 7+8: summarize
+`summarize()` can be used to produce quick statistical summaries
+used with mean, median, n, 
+group_by()
+  group_by(years_of_sample_collection, sex) %>% 
+  summarize(mean_estimated_age_years=mean(estimated_age_years, na.rm=T),...
+n_distinct used inside summarize
+pull() for extracting a column
+count() used outside summarize
+count(vore, sort=T)
+
+lab 9: pivots
+`Tidy` data follows three conventions:   
+(1) each variable has its own column  
+(2) each observation has its own row  
+(3) each value has its own cell  
+`pivot_longer`(cols, names_to, values_to)
+separate(patient, into=c("patient", "gender"), sep="_")
+unite(patient, "patient", "gender", sep="_")
+`pivot_wider`(names_from, values_from)
+
+lab 10: plots
+geom_bar and geom_col (x and y defined) for counts
+scatter for 2 cont var
+boxplot for range
+
+
+lab 11: plots
+line plots for changes over time geom_line
+histograms and density for distribution geom_histogram geom_density
+use case_when to create new variables from others, used in a mutate function
+facet_wrap or facet_grid for multiple panels (x~y)
+
+lab 13: 
+handling NA's
+checking for NA's:
+summarize(across(everything(), ~ sum(is.na(.)))) or ~~sum(.==-999)
+change values to NA's:
+mutate(max_life=na_if(max_life, 0))
+library naniar:
+miss_var_summary(life_history_no_nas)
+gg_miss_var()
+replace_with_na(replace = list...
+joining tables:
+left_join, right_join, full_join
+library lubridate:
+`ymd`, `mdy`, `dmy`, `mdy_hms`, `ymd_hms`
+
+lab 14: mapping
+stadia->key
+library ggmap: 
+create lat and long vectors with min and max
+create bbox
+create map with get_stadiamap(bbox, maptype="stamen_terrain", zoom=7)
+ggmap(map)
+library leaflet:
+leaflet(dataset) %>% 
+  addTiles() %>% 
+  addProviderTiles(providers$Stadia.StamenTerrain) %>% 
+  addCircleMarkers(
+    lng = ~longitude,
+    lat = ~latitude,
+    radius=2,
+    stroke=F,
+    fillOpacity=0.7
+  ) %>% 
+  addScaleBar(position="bottomleft") %>% 
+  fitBounds(lng1=lon_min, lat1=lat_min,
+            lng2=lon_max, lat2=lat_max)
+
+lab 15: shiny app
+ui <- fluidPage(
+  
+)
+
+server <- function(input, output, session) {
+  
+}
+
+shinyApp(ui, server)
+
+example: 
+ui <- dashboardPage(
+    dashboardHeader(title="Sex Composition of Wolves By Population"),
+    
+    dashboardSidebar(
+      
+      selectInput("x",
+                  "Select Population",
+                  choices=sort(unique(wolves$pop)),
+                  selected="AK.PEN")
+    ),
+    
+    dashboardBody(
+      plotOutput("plot", width="500px", height="400px")
+    )
+)
+
+server <- function(input, output, session) {
+  output$plot <- renderPlot({
+    wolves %>% 
+      filter(sex!="NA") %>% 
+      filter(input$x==.data[["pop"]]) %>% 
+      ggplot(aes(x=sex, fill=sex))+
+      geom_bar(color="black",
+               alpha=0.8)+
+      theme_gray()+
+      labs(x="Sex")
+  })
+}
+
+shinyApp(ui, server)
