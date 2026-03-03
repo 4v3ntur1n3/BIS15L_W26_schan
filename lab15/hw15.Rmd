@@ -63,7 +63,7 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-2. In addition to the .Rmd file, save your app as a standalone R script called `elephants.csv`. #add a read_csv()
+2. In addition to the .Rmd file, save your app as a standalone R script called `elephants.csv`.
 
 ## Knit and Upload
 Please knit your work as an .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!

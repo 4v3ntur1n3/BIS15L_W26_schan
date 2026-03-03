@@ -3,6 +3,9 @@ library(janitor)
 library(shiny)
 library(shinydashboard)
 
+elephants <- read_csv("data/elephants_data/elephants.csv") %>%
+  clean_names()
+
 ui <- dashboardPage(
   
   dashboardHeader(title="Age and Height of Elephants Based on Sex"),
