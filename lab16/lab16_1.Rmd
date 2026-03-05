@@ -125,7 +125,7 @@ mv e.coli_genbank.fasta data/
 
 We can move more than one file at a time by using the `*` wildcard. The wildcard `*` represents any string of characters. This allows us to move all files that share a common pattern in their name. For example, if we wanted to move all files that end with .fasta into the data folder we could use the following command:
 ```{}
-
+mv *.fasta data/
 
 ```
 
@@ -209,7 +209,9 @@ What commands did you use to make the blast_results folder?
 
 -->[Home](https://jmledford3115.github.io/datascibiol/)
 
-
+extra cmds:
+history
+control+R
 
 
 

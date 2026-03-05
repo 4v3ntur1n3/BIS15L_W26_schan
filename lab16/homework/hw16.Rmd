@@ -1,6 +1,6 @@
 ---
 title: "Homework YY"
-author: "Your Name Here"
+author: "Stanley Chan"
 date: "`r Sys.Date()`"
 output:
   html_document:
@@ -20,10 +20,10 @@ Make sure to use the formatting conventions of RMarkdown to make your report nea
 
 ### Install Biostrings
 ```{r,bquiet=TRUE, message=FALSE, warning=FALSE}
-#if (!requireNamespace("BiocManager", quietly = TRUE))
-#  install.packages("BiocManager")
+if (!requireNamespace("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
 
-#BiocManager::install("Biostrings")
+BiocManager::install("Biostrings")
 ```
 ## Load the libraries
 ```{r message=FALSE, warning=FALSE}
@@ -45,7 +45,7 @@ You will use BLAST, a tool used in real clinical and research microbiology labs,
 
 **1. Read the "gene of interest" sequence from the `goi_01.txt` file into R using the Biostrings package. Store this in an object called `query_seq`.What type sequence is this? (DNA, RNA or Protien) **
 ```{r}
-
+query_seq <- readRNAStringSet("data/goi_01.txt")
 ```
 
 ```{r}
@@ -68,13 +68,13 @@ You will use BLAST, a tool used in real clinical and research microbiology labs,
 ```
  
 
-**4. create a plot that shows the different in percent identity for each Scientific Name of the top 10 blastx hits. Make sure to label your axes and give your plot a title.**
+**4. Create a plot that shows the different in percent identity for each Scientific Name of the top 10 blastx hits. Make sure to label your axes and give your plot a title.**
 ```{r}
 
 ```
 
 
-**5 Perform a blastn search using `goi_01.txt` as the query and the "core_nt" database. Download the alignment description in CSV format, change the name to "goi_01_blastn.csv" and store in the homework/data folder. Read the csv file into R and clean the column names. Save the cleaned data frame as goi_01_blastn.**
+**5. Perform a blastn search using `goi_01.txt` as the query and the "core_nt" database. Download the alignment description in CSV format, change the name to "goi_01_blastn.csv" and store in the homework/data folder. Read the csv file into R and clean the column names. Save the cleaned data frame as goi_01_blastn.**
 ```{r}
 
 ```
