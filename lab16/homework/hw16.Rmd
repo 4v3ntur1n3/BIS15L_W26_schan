@@ -44,16 +44,18 @@ A patient has been admitted to the hospital with a severe and rapidly progressin
 You will use BLAST, a tool used in real clinical and research microbiology labs, to compare this unknown sequence against all known biological sequences in the NCBI database.
 
 **1. Read the "gene of interest" sequence from the `goi_01.txt` file into R using the Biostrings package. Store this in an object called `query_seq`.What type sequence is this? (DNA, RNA or Protien) **
-```{r}
-query_seq <- readRNAStringSet("data/goi_01.txt")
-```
 
 ```{r}
+query_seq <- readDNAStringSet("data/goi_01.fasta")
+```
 
+Based on the nucleotides in goi_01.fasta, this is a DNA sequence.
+```{r}
+query_seq
 ```
 
 
-**2.Perform a blastx search using `goi_01.txt` as the query and the "core_nt" database. Download the cluster table results in CSV format, change the name to "goi_01_blastx.csv" and store in the homework/data folder. Read the csv file into R and clean the column names. Save the cleaned data frame as goi_01_blastx.**
+**2.Perform a blastx search using `goi_01.txt` as the query and the "nr_cluster_seq" database. Download the cluster table results in CSV format, change the name to "goi_01_blastx.csv" and store in the homework/data folder. Read the csv file into R and clean the column names. Save the cleaned data frame as goi_01_blastx.**
 ```{r}
 
 ```
@@ -74,7 +76,7 @@ query_seq <- readRNAStringSet("data/goi_01.txt")
 ```
 
 
-**5. Perform a blastn search using `goi_01.txt` as the query and the "core_nt" database. Download the alignment description in CSV format, change the name to "goi_01_blastn.csv" and store in the homework/data folder. Read the csv file into R and clean the column names. Save the cleaned data frame as goi_01_blastn.**
+**5 Perform a blastn search using `goi_01.txt` as the query and the "core_nt" database. Download the alignment description in CSV format, change the name to "goi_01_blastn.csv" in the homework folder. Read the csv file into R and clean the column names. Save the cleaned data frame as goi_01_blastn.**
 ```{r}
 
 ```
@@ -83,7 +85,7 @@ query_seq <- readRNAStringSet("data/goi_01.txt")
 
 ```
 
-**6. What was the top blastn hit, based on e_value, for this blastn search? (Include the Cluster Ancestor, Cluster, Representative Sequence, Max Score, Query Cover, E value, Percent Identity and Accession Link)**
+**6. What was the top blastn hit, based on e_value, for this blastn search? (Include the Cluster Ancestor, Cluster Representative Sequence, Max Score, Query Cover, E value, Percent Identity and Accession Link)**
 ```{r}
 
 ```
