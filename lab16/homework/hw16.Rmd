@@ -57,63 +57,79 @@ query_seq
 
 **2.Perform a blastx search using `goi_01.txt` as the query and the "nr_cluster_seq" database. Download the cluster table results in CSV format, change the name to "goi_01_blastx.csv" and store in the homework/data folder. Read the csv file into R and clean the column names. Save the cleaned data frame as goi_01_blastx.**
 ```{r}
-
+goi_01_blastx <- read_csv("data/goi_01_blastx.csv") %>% 
+  clean_names()
 ```
 
 ```{r}
-
+goi_01_blastx
 ```
 
 **3.Display the top 10 blastx hits, based on e_value, for this blastx search? (Include the Scientific Name, Cluster Anscestor, Cluster Representative Sequence, Max Score, Query Cover, E value and Percent Identity)**
 ```{r}
-
+blastx_hot_10 <- goi_01_blastx %>% 
+  select(scientific_name, cluster_ancestor, representative_sequence, max_score, query_cover, e_value, per_ident) %>% 
+  arrange(desc(e_value)) %>% 
+  slice_head(n=10)
+blastx_hot_10
 ```
  
 
 **4. Create a plot that shows the different in percent identity for each Scientific Name of the top 10 blastx hits. Make sure to label your axes and give your plot a title.**
+
+For clarification on the new mutated columns, I was having a hard time splitting some of the columns because they shared the same scientific name and started off with columns exceeding 100%. I asked Copilot what the issue was and they brought that scientific name issue and suggested that I apply a rank to each of the scientific names of the top 10 blastx hits to make them unique. I've used their rank and label codes here.
 ```{r}
-
+blastx_hot_10 %>%
+  mutate(rank = row_number(), # Apply a rank based on e_value as that was how I arranged the data set before
+         label = paste0(rank, ". ", scientific_name)) %>%  # Concatenate ranking and scientific name
+  ggplot(aes(x=label, y=per_ident, fill=scientific_name))+
+  geom_col()+
+  coord_flip()+
+  labs(title = "Percent Identity of Top 10 Blastx Hits", x = "Scientific Name", y = "Percent Identity (%)")+
+  theme(legend.position="none")
 ```
-
 
 **5 Perform a blastn search using `goi_01.txt` as the query and the "core_nt" database. Download the alignment description in CSV format, change the name to "goi_01_blastn.csv" in the homework folder. Read the csv file into R and clean the column names. Save the cleaned data frame as goi_01_blastn.**
 ```{r}
-
+goi_01_blastn <- read_csv("data/goi_01_blastn.csv") %>% 
+  clean_names()
 ```
 
 ```{r}
-
+goi_01_blastn
 ```
 
 **6. What was the top blastn hit, based on e_value, for this blastn search? (Include the Cluster Ancestor, Cluster Representative Sequence, Max Score, Query Cover, E value, Percent Identity and Accession Link)**
-```{r}
 
+I didn't see a cluster ancestor or cluster representative sequence on the chart so I have included what I can about the top blastn hit. Looking at the data, all the rows seem to have an e_value of 0 and a max score of 688.
+```{r}
+goi_01_blastn %>% 
+  select(scientific_name, max_score, query_cover, e_value, per_ident, accession) %>% 
+  arrange(desc(e_value))
 ```
 
 **7. Based on the blastx and blastn results, what do you think this gene is and what bacteria do you think it came from?**
-```{}
 
-```
+From the results, this gene is likely from the pMT1 plasmid from the bacteria Yersinia pestis. This gene likely codes for the hypothetical protein YpF1991016_2825.
 
 **8. For the top blastn hit, click on the accession link for this bacteria and download the coding sequences as a FASTA Protein file. Read the fasta file into R using the Biostrings package and store it in an object called `goi_blastn_hit`.**
-```{r}
 
+For reference, top blastn hit in my table is labelled as "Yersinia pestis strain 9 plasmid pMT1, complete sequence" on the website.
+```{r}
+goi_blastn_hit <- readDNAStringSet("data/sequence.fasta")
 ```
 
 ```{r}
-
+goi_blastn_hit
 ```
 
 **9. From the same organism, identify 5 other annotated genes? Do these genes suggest about the biology or virulence of this bacterium?** *Annotated genes can be found in the "CDS" section of the GenBank file. You can also find genes by going to summary page for the organism and looking at the "View annotated genes" section.*
-```{r}
 
-```
 
 
 **10. Now that you have an idea of this bacteria's identity, what illness/disease do you think the patient has? What is the historical or public health significance of this disease? Based on the gene you identified, what role might this gene play in pathogenicity?**
-```{}
 
-```
+
 
 
 ## Knit and Upload
