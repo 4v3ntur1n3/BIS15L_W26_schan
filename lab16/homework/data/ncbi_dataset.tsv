@@ -1,0 +1,6 @@
+Accession	Begin	End	Chromosome	Orientation	Name	Symbol	Gene ID	Gene Type	Transcripts accession	Protein accession	Protein length	Locus tag
+NZ_CP045154.1	1	1389		plus	chromosomal replication initiator protein DnaA	dnaA	0	protein-coding		WP_002220732.1	462	GCK71_RS00005
+NZ_CP045154.1	1394	2494		plus	DNA polymerase III subunit beta	dnaN	0	protein-coding		WP_002209645.1	366	GCK71_RS00010
+NZ_CP045154.1	2667	3752		plus	DNA replication/repair protein RecF	recF	0	protein-coding		WP_002209643.1	361	GCK71_RS00015
+NZ_CP045154.1	3772	6186		plus	DNA topoisomerase (ATP-hydrolyzing) subunit B	gyrB	0	protein-coding		WP_002209642.1	804	GCK71_RS00020
+NZ_CP045154.1	6402	7211		plus	sugar-phosphatase	yidA	0	protein-coding		WP_002209641.1	269	GCK71_RS00025
